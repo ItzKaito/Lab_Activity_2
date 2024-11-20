@@ -1,0 +1,95 @@
+    public static void main(String[] args) {
+
+        boolean main = true;
+
+        while (main == true) {
+            int jo1 = JOptionPane.showConfirmDialog(null, "Welcome to Kaito's Store!\nDo you want to buy something?", "(yes/no)", JOptionPane.YES_NO_OPTION);
+
+            main = false;
+            boolean check = false;
+            int totalcost = 0;
+
+            while (jo1 == JOptionPane.YES_OPTION) {
+                String list = JOptionPane.showInputDialog("Available Items:"
+                        + "\nItem:         Cost:      Code:"
+                        + "\nCoke          $20         1"
+                        + "\nEgg            $12          2"
+                        + "\nBread         $20         3"
+                        + "\nCandy         $1           4"
+                        + "\nMarijuana  $500        5");
+
+                int product = Integer.parseInt(list);
+                double price = 0;
+                String name = "";
+
+                switch (product) {
+                    case 1:
+                        price = 20;
+                        name = "Coke";
+                        check = true;
+                        break;
+
+                    case 2:
+                        price = 12;
+                        name = "Egg";
+                        check = true;
+                        break;
+
+                    case 3:
+                        price = 20;
+                        name = "Bread";
+                        check = true;
+                        break;
+
+                    case 4:
+                        price = 1;
+                        name = "Candy";
+                        check = true;
+                        break;
+
+                    case 5:
+                        price = 500;
+                        name = "Marijuana";
+                        check = true;
+                        break;
+
+                }
+                if (check == true) {
+                    String jo2 = JOptionPane.showInputDialog("You have selected " + name + " for $" + price + "\nEnter Quantity:");
+                    int quantity = Integer.parseInt(jo2);
+                    int subtotal = (int) (price * quantity);
+                    totalcost += subtotal;
+                    JOptionPane.showMessageDialog(null, "Subtotal: " + quantity + " x $" + price + " = $" + subtotal);
+                    jo1 = JOptionPane.showConfirmDialog(null, "Do you want to buy another item?", " (yes/no)", JOptionPane.YES_NO_OPTION);
+                }
+                if (jo1 == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Total: $" + totalcost);
+
+                    double payment = 0;
+
+                    int rule = 0;
+                    for (int i = 0; i < 3; i++) {
+                        String jo4 = JOptionPane.showInputDialog("Please enter the amount of money:");
+                        payment = Double.parseDouble(jo4);
+
+                        if (payment < totalcost) {
+                            JOptionPane.showMessageDialog(null, "Insufficient fund. You need at least $" + (totalcost - payment) + " more.");
+                            rule += 1;
+                        } else {
+                            double change = payment - totalcost;
+                            JOptionPane.showMessageDialog(null, "Thank you for buying at Kaito's Store! "
+                                    + "\nYour change is $" + change
+                                    + "\n Please come back soon!");
+                            break;
+                        }
+                    }
+                    if (rule == 3) {
+                        JOptionPane.showMessageDialog(null, "Sorry, this order has been voided."
+                                + "\nPlease reorder your items.");
+                    }
+                    main = true;
+                }
+            }
+
+        }
+    }
